@@ -11,6 +11,7 @@ public class BossController : MonoBehaviour
 
     public GameObject bulletPrefab;     //총알
     public float shootSpeed = 5.0f;     //총알 속도
+    private float originShootSpeed;
 
     //공격중인지 여부
     bool inAttack = false;
@@ -18,6 +19,7 @@ public class BossController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        originShootSpeed = shootSpeed;
     }
 
     // Update is called once per frame
@@ -25,6 +27,17 @@ public class BossController : MonoBehaviour
     {
         if (hp > 0)
         {
+            //기본 총알 속도 저장
+            
+
+            if(hp <= 5 && shootSpeed == originShootSpeed)
+            {
+                shootSpeed = originShootSpeed * 2;
+            }else if(hp > 5 && shootSpeed != originShootSpeed)
+            {
+                shootSpeed = originShootSpeed;
+            }
+
             //Player 게임 오브젝트 가져오기
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
